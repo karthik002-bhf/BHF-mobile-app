@@ -68,7 +68,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               if (ccData.isNotEmpty)
-                PrdCatItems(catItems: ccData, from: 'cmart'),
+                PrdCatItems(catItems: ccData, from: 'cc'),
               if (ccData.isEmpty)
                 const Center(child: CircularProgressIndicator()),
               const SizedBox(height: 14),

@@ -13,7 +13,10 @@ class PrdDetailsScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text(prdItem['brand_product_name']),
+        title: Text(
+          prdItem['brand_product_name'],
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline)),
         ],

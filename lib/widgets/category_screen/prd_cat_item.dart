@@ -24,6 +24,17 @@ class PrdCatItem extends StatelessWidget {
           ),
         ),
       );
+    }else if (from == 'cc') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (cts) => CategoryPrdsScreen(
+            title: category['name'],
+            // slug: category['slug'],
+            slug: 'construction-chemicals',
+            subCatId: category['id'],            
+          ),
+        ),
+      );
     }
   }
 

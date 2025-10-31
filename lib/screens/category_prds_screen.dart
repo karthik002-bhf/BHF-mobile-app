@@ -8,16 +8,18 @@ class CategoryPrdsScreen extends StatefulWidget {
     super.key,
     required this.title,
     required this.slug,
+    this.subCatId,
   });
   final String title;
   final String slug;
+  final int? subCatId;
 
   @override
   State<CategoryPrdsScreen> createState() => _CategoryPrdsScreenState();
 }
 
 class _CategoryPrdsScreenState extends State<CategoryPrdsScreen> {
-  Map<String, dynamic>? productsData;
+  List<dynamic>? productsData;
   bool isLoading = true;
 
   void _getProducts() async {
@@ -26,16 +28,38 @@ class _CategoryPrdsScreenState extends State<CategoryPrdsScreen> {
       final response = await dio.get(
         "${AppConstant.baseUrl}/categories/${widget.slug}",
       );
-      final productResponse = response.data;
+      final productResponse = response.data['data'];
+      List<dynamic> prds = [];
+      if (widget.subCatId != null) {
+        // Ensure products is a List and each item is a Map before filtering
+        prds = (productResponse['products'] as List)
+            .where(
+              (e) =>
+                  e['subCategory'] != null &&
+                  e['subCategory']['id'] == widget.subCatId,
+            )
+            .toList();
+      } else {
+        prds = productResponse['products'] as List;
+      }
+
+      // final productResponse = response.data['data'];
+      // var prds = [];
+      // if(widget.subCatId != null){
+      //   prds = productResponse.products.where((e)=> e['subCategory']['id'] == widget.subCatId).toList();
+      // }else{
+      //   prds = productResponse['data']['products'];
+      // }
       // print('productResponse: $productResponse');
       setState(() {
-        productsData = productResponse['data'] as Map<String, dynamic>;
+        // productsData = productResponse['data'] as Map<String, dynamic>;
+        productsData = prds;
         isLoading = false;
       });
     } catch (error) {
       print('error: $error');
       setState(() {
-        productsData = {};
+        productsData = [];
         isLoading = false;
       });
     }
@@ -58,10 +82,15 @@ class _CategoryPrdsScreenState extends State<CategoryPrdsScreen> {
       content = Center(child: Text('No products found for this category.'));
     }
     if (!isLoading) {
-      content = CategoryPrds(prdsData: productsData!['products']);
+      content = CategoryPrds(prdsData: productsData!);
     }
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
