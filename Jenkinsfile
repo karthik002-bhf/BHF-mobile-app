@@ -54,14 +54,18 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs()
-        }
-        success {
-            echo '✅ Build successful! APK archived.'
-        }
-        failure {
-            echo '❌ Build failed. Check logs in Jenkins console.'
+    success {
+        echo '✅ Build successful! APK archived.'
+        script {
+            try {
+                cleanWs()
+            } catch (Exception e) {
+                echo "⚠️ Could not clean workspace"
+            }
         }
     }
+    failure {
+        echo '❌ Build failed. Check logs in Jenkins console.'
+    }
+}
 }
