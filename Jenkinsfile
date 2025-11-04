@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\Users\\LENOVO1\\Downloads\\bhf_mobile_app\\flutter\\bin;${env.PATH}" 
+        PATH = "C:\\flutter\\flutter\\bin;${env.PATH}" 
     }
   
     stages {
