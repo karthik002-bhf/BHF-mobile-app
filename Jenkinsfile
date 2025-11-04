@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\flutter\\flutter\\bin,C:\\Android\\sdk\\platform-tools;C:\\Android\\sdk\\cmdline-tools\\latest\\bin;${env.PATH}," 
+        PATH = "C:\\flutter\\flutter\\bin,C:\\Android\\sdk\\platform-tools;C:\\Android\\sdk\\cmdline-tools\\latest\\bin;${env.PATH}" 
         ANDROID_HOME = "C:\\Android\\sdk"
         ANDROID_SDK_ROOT = "C:\\Android\\sdk"
     }
