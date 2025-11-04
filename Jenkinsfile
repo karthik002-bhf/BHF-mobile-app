@@ -11,25 +11,25 @@ pipeline {
     stage('Flutter Setup') {
       steps {
         echo 'Setting up Flutter SDK'
-        sh 'flutter --version'
+        bat 'flutter --version'
       }
     }
 
     stage('Install Dependencies') {
       steps {
-        sh 'flutter pub get'
+        bat 'flutter pub get'
       }
     }
 
     stage('Run Tests') {
       steps {
-        sh 'flutter test'
+        bat 'flutter test'
       }
     }
 
     stage('Build APK') {
       steps {
-        sh 'flutter build apk --release'
+        bat 'flutter build apk --release'
       }
     }
   }
