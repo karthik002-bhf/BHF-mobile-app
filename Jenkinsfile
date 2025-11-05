@@ -1,13 +1,14 @@
+/* groovylint-disable NestedBlockDepth */
 pipeline {
     agent any
 
     environment {
-        PATH = "C:\\flutter\\flutter\\bin;C:\\Android\\sdk\\platform-tools;C:\\Android\\sdk\\cmdline-tools\\latest\\bin;${env.PATH}" 
-        ANDROID_HOME = "C:\\Android\\sdk"
-        ANDROID_SDK_ROOT = "C:\\Android\\sdk"
+        PATH = "C:\\flutter\\flutter\\bin;C:\\Android\\sdk\\platform-tools;C:\\Android\\sdk\\cmdline-tools\\latest\\bin;${env.PATH}"
+        ANDROID_HOME = 'C:\\Android\\sdk'
+        ANDROID_SDK_ROOT = 'C:\\Android\\sdk'
         SONARQUBE_SCANNER_HOME = tool 'SonarScanner'
     }
-  
+
     stages {
         stage('Checkout') {
             steps {
@@ -35,16 +36,13 @@ pipeline {
                 bat 'flutter test --coverage'
             }
         }
-        
+
         stage('SonarQube Analysis') {
-            steps{
-                script{
+            steps {
+                script {
                     echo '🔍 Running SonarQube code analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        // bat '"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat"'
                         bat "\"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat\" -Dsonar.dart.lcov.reportPaths=coverage/lcov.info"
-                        } 
-
                     }
                 }
             }
@@ -61,6 +59,7 @@ pipeline {
             }
         }
 
+        // Optional stage if you want to run tests separately again
         // stage('Run Tests') {
         //     steps {
         //         script {
@@ -80,26 +79,27 @@ pipeline {
 
         stage('Archive APK') {
             steps {
-                archiveArtifacts artifacts: 'build/app/outputs/flutter-apk/app-release.apk', 
-                                 allowEmptyArchive: false
+                archiveArtifacts(
+                    artifacts: 'build/app/outputs/flutter-apk/app-release.apk',
+                    allowEmptyArchive: false
+                )
             }
         }
     }
 
     post {
-    success {
-        echo '✅ Build successful! APK archived.'
-        script {
-            try {
-                cleanWs()
-            } catch (Exception e) {
-                echo "⚠️ Could not clean workspace"
+        success {
+            echo '✅ Build successful! APK archived.'
+            script {
+                try {
+                    cleanWs()
+                } catch (Exception e) {
+                    echo '⚠️ Could not clean workspace'
+                }
             }
         }
+        failure {
+            echo '❌ Build failed. Check logs in Jenkins console.'
+        }
     }
-    failure {
-        echo '❌ Build failed. Check logs in Jenkins console.'
-    }
-}
-
 }
