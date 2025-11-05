@@ -34,7 +34,8 @@ pipeline {
                 script{
                     echo '🔍 Running SonarQube code analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        bat "\"${SONARQUBE_SCANNER_HOME}\\bin\\sonar-scanner.bat""
+                        bat '"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat"'
+
                     }
                 }
             }
