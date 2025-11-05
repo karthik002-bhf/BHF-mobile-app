@@ -5,6 +5,7 @@ pipeline {
         PATH = "C:\\flutter\\flutter\\bin;C:\\Android\\sdk\\platform-tools;C:\\Android\\sdk\\cmdline-tools\\latest\\bin;${env.PATH}" 
         ANDROID_HOME = "C:\\Android\\sdk"
         ANDROID_SDK_ROOT = "C:\\Android\\sdk"
+        SONARQUBE_SCANNER_HOME = tool 'SonarScanner'
     }
   
     stages {
@@ -25,6 +26,28 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 bat 'flutter pub get'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps{
+                script{
+                    echo '🔍 Running SonarQube code analysis...'
+                    withSonarQubeEnv('SonarQube') {
+                        bat "\"${SONARQUBE_SCANNER_HOME}\\bin\sonar-scanner.bat""
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    script {
+                        echo '⏳ Checking SonarQube Quality Gate...'
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
             }
         }
 
@@ -68,4 +91,5 @@ pipeline {
         echo '❌ Build failed. Check logs in Jenkins console.'
     }
 }
+
 }
