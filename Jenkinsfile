@@ -29,12 +29,21 @@ pipeline {
             }
         }
 
+        stage('Run Tests with Coverage') {
+            steps {
+                echo '🧪 Running Flutter tests with coverage...'
+                bat 'flutter test --coverage'
+            }
+        }
+        
         stage('SonarQube Analysis') {
             steps{
                 script{
                     echo '🔍 Running SonarQube code analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        bat '"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat"'
+                        // bat '"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat"'
+                        bat "\"%SONARQUBE_SCANNER_HOME%\\bin\\sonar-scanner.bat\" -Dsonar.dart.lcov.reportPaths=coverage/lcov.info"
+                        } 
 
                     }
                 }
@@ -52,16 +61,16 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-                    def result = bat(returnStatus: true, script: 'flutter test')
-                    if (result != 0) {
-                        echo '⚠️ No tests found or tests failed (continuing build)'
-                    }
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     steps {
+        //         script {
+        //             def result = bat(returnStatus: true, script: 'flutter test')
+        //             if (result != 0) {
+        //                 echo '⚠️ No tests found or tests failed (continuing build)'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build APK') {
             steps {
