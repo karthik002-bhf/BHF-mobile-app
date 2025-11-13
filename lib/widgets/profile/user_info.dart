@@ -1,3 +1,4 @@
+import 'package:bhf_mobile_app/screens/address_list_screen.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,11 @@ class UserInfo extends StatelessWidget {
                 title: Text('Saved Address', style: TextStyle(fontSize: 18)),
                 trailing: Icon(Icons.arrow_forward_ios),
                 splashColor: Color.fromARGB(181, 158, 158, 158),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => AddressListScreen()),
+                  );
+                },
               ),
               const DottedLine(
                 dashColor: Color.fromARGB(72, 158, 158, 158),
@@ -90,7 +95,6 @@ class UserInfo extends StatelessWidget {
                 splashColor: Color.fromARGB(181, 158, 158, 158),
                 onTap: () {},
               ),
-
             ],
           ),
         ),

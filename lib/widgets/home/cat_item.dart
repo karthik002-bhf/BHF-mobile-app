@@ -80,7 +80,9 @@ class CatItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: textSize,
                   fontWeight: FontWeight.bold,
-                  color: textColor,
+                  color: 
+                  textColor,
+                  // Theme.of(context).colorScheme.primary,
                   // letterSpacing: 0.2,
                 ),
                 textAlign: TextAlign.center,

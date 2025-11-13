@@ -66,33 +66,21 @@ class SurveyingScreen extends StatelessWidget {
     },
   ];
 
-   final features = [
-        {
-            'id': 1,
-            'title': "Expertise & Experience",
-            'icon': Icons.lightbulb_outline,
-        },
-        {
-            'id': 2,
-            'title': "High-End Equipment",
-            'icon': Icons.precision_manufacturing,
-        },
-        {
-            'id': 3,
-            'title': "Precision",
-            'icon': Icons.workspace_premium,
-        },
-        {
-            'id': 4,
-            'title': "Timely Service",
-            'icon': Icons.access_time,
-        },
-        {
-            'id': 5,
-            'title': "Transparent Pricing",
-            'icon': Icons.currency_rupee,
-        }
-    ];
+  final features = [
+    {
+      'id': 1,
+      'title': "Expertise & Experience",
+      'icon': Icons.lightbulb_outline,
+    },
+    {
+      'id': 2,
+      'title': "High-End Equipment",
+      'icon': Icons.precision_manufacturing,
+    },
+    {'id': 3, 'title': "Precision", 'icon': Icons.workspace_premium},
+    {'id': 4, 'title': "Timely Service", 'icon': Icons.access_time},
+    {'id': 5, 'title': "Transparent Pricing", 'icon': Icons.currency_rupee},
+  ];
 
   // In your widget tree
   // PricingTable(pricingData: pricingData),
@@ -115,7 +103,13 @@ class SurveyingScreen extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.justify,
                 text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
+                  style: TextStyle(
+                    fontSize: 16, // Set a reasonable size
+                    color: Colors.black, // Use a standard color
+                    fontFamily: 'Roboto', // Or your app's default
+                    decoration: TextDecoration.none, // No underline/highlight
+                    fontWeight: FontWeight.normal,
+                  ),
                   children: [
                     // TextSpan(text: "This is normal text, but "),
                     TextSpan(
@@ -127,7 +121,6 @@ class SurveyingScreen extends StatelessWidget {
                           " is a critical process in the planning and development of land for residential, commercial, and infrastructure projects. It ensures accurate boundary definition, elevation mapping, and layout planning. With our expert team and modern tools like Total Station and GPS, BHF Platform provides highly accurate and efficient surveying services. Accurate surveys reduce disputes, improve construction accuracy, and ensure smooth project execution from start to finish.",
                     ),
                   ],
-                  
                 ),
               ),
               const SizedBox(height: 8),

@@ -12,8 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -25,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 110, 168, 238), // Navy
+                Color.fromARGB(255, 165, 199, 240), // Navy
                 Color.fromARGB(255, 129, 156, 188), // Navy
                 // Color(0xFFF3F6F9), // Concrete Grey
               ],
@@ -50,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: colorScheme.onPrimary,
+                    color: Colors.black54
+                    // colorScheme.primary,
                   ),
                 ),
                 Text(
@@ -58,7 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: colorScheme.tertiaryFixed,
+                    color: Colors.black
+                    // colorScheme.tertiaryFixed,
                   ),
                 ),
               ],
@@ -84,8 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFE6EBF6), // Subtle blue
-              Color(0xFFF3F6F9), // Very light grey
+              Color.fromARGB(255, 247, 247, 187),
+              Color(0xFFF1F1E2),
+              // Color(0xff282a36),
+              // Color(0xFF45485A)
+              // Color(0xFFE6EBF6),
+              // Color(0xFFF3F6F9),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -107,8 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(24),
                       gradient: const LinearGradient(
                         colors: [
-                          Color.fromARGB(255, 86, 151, 231), // Navy
-                          Color.fromARGB(255, 186, 204, 243), // Subtle blue
+                          Color(0xff282a36),
+                          Color(0xFF45485A),
+                          // Color(0xfff8f8f2),
+                          // Color(0xFFF1F1E2)
+                          // Color.fromARGB(255, 86, 151, 231),
+                          // Color.fromARGB(255, 186, 204, 243),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -118,20 +126,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Text(
-                          'C-Mart',
+                          // 'C-Mart',
+                          'InfraKart',
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSecondary,
+                                color: Theme.of(context).colorScheme.onPrimary,
                               ),
                           // style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colorScheme.secondary),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 4),
-                        HomeFirstContent(catItems: widget.categoryData, from: 'cmart'),
+                        HomeFirstContent(
+                          catItems: widget.categoryData,
+                          from: 'cmart',
+                        ),
                       ],
                     ),
                   ),
@@ -149,10 +159,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(24),
                     gradient: const LinearGradient(
                       colors: [
-                        // Color(0xFF174378), // Navy
-                        // Color(0xFFE6EBF6), // Subtle blue
-                        Color.fromARGB(255, 86, 151, 231), // Navy
-                        Color.fromARGB(255, 186, 204, 243), // P
+                        // Color(0xFF174378),
+                        // Color(0xFFE6EBF6),
+                        Color.fromARGB(255, 86, 151, 231),
+                        Color.fromARGB(255, 186, 204, 243),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,

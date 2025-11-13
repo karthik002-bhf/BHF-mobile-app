@@ -112,7 +112,13 @@ class PlanAndDesignScreen extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.justify,
                 text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
+                  style: TextStyle(
+                    fontSize: 16, // Set a reasonable size
+                    color: Colors.black, // Use a standard color
+                    fontFamily: 'Roboto', // Or your app's default
+                    decoration: TextDecoration.none, // No underline/highlight
+                    fontWeight: FontWeight.normal,
+                  ),
                   children: [
                     // TextSpan(text: "This is normal text, but "),
                     TextSpan(
@@ -130,7 +136,13 @@ class PlanAndDesignScreen extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.justify,
                 text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
+                  style: TextStyle(
+                    fontSize: 16, // Set a reasonable size
+                    color: Colors.black, // Use a standard color
+                    fontFamily: 'Roboto', // Or your app's default
+                    decoration: TextDecoration.none, // No underline/highlight
+                    fontWeight: FontWeight.normal,
+                  ),
                   children: [
                     // TextSpan(text: "This is normal text, but "),
                     TextSpan(

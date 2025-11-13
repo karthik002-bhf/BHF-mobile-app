@@ -1,6 +1,12 @@
 import 'package:bhf_mobile_app/common/config.dart';
 import 'package:bhf_mobile_app/screens/cart_screen.dart';
 import 'package:bhf_mobile_app/screens/categories_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/painting_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/repair_and_renovation_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/pmc_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/interiors_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/material_testing_screen.dart';
+// import 'package:bhf_mobile_app/screens/cts/waterproof_screen.dart';
 // import 'package:bhf_mobile_app/screens/cts/plan_and_design_screen.dart';
 // import 'package:bhf_mobile_app/screens/cts/surveying_screen.dart';
 import 'package:bhf_mobile_app/screens/home_screen.dart';
@@ -29,6 +35,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         categoryData = categoryResponse['data'];
       });
     } catch (error) {
+      print('error: $error');
       setState(() {
         categoryData = [];
         isLoading = false;
@@ -45,6 +52,12 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   List<Widget> get _screens => [
     // PlanAndDesignScreen(),
     // SurveyingScreen(),
+    // MaterialTestingScreen(),
+    // InteriorsScreen(),
+    // WaterproofScreen(),
+    // PmcScreen(),
+    // RepairAndRenovationScreen(),
+    // PaintingScreen(),
     HomeScreen(categoryData: categoryData),
     CategoriesScreen(categoryData: categoryData),
     OrderAgainScreen(),

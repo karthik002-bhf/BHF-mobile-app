@@ -1,6 +1,7 @@
 import 'package:bhf_mobile_app/common/config.dart';
 import 'package:bhf_mobile_app/screens/prd_details_screen.dart';
 import 'package:bhf_mobile_app/widgets/common/quantity_selector.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class CatPrd extends StatelessWidget {
@@ -16,6 +17,28 @@ class CatPrd extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textColor = colorScheme.tertiary;
     final highlightColor = colorScheme.secondary;
+    String choosenQuantity = prdItem['unit_si'] == 'MT' ? '0.1' : '1';
+
+    void addToCart() async {
+      final values = {
+        'product_id': prdItem['id'],
+        "user_id": AppConstant.userId,
+        'quantity': choosenQuantity,
+      };
+      try {
+        var dio = Dio();
+        final response = await dio.post(
+          "${AppConstant.baseUrl}/cart/add",
+          data: values,
+          options: Options(headers: {'Content-Type': 'application/json',}),
+        );
+        final cartResponse = response.data;
+        print('cartResponse: $cartResponse');
+      } catch (error) {
+        print('Add to cart Error: $error');
+      }
+      
+    }
 
     return Card(
       child: Container(
@@ -96,14 +119,13 @@ class CatPrd extends StatelessWidget {
                       isMetric: prdItem['unit_si'] == 'MT' ? true : false,
                       initialQuantity: prdItem['unit_si'] == 'MT' ? 0.1 : 1.0,
                       onQuantityChanged: (newQuantity) {
-                        // Handle quantity change, e.g., update cart item
-                        print('Quantity changed to $newQuantity');
+                        // print('Quantity changed to $newQuantity');
+                        choosenQuantity = newQuantity.toString();
                       },
-                      onAddToCart: () {},
                     ),
                     SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: addToCart,
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),

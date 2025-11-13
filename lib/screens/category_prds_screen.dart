@@ -1,5 +1,6 @@
 import 'package:bhf_mobile_app/common/config.dart';
 import 'package:bhf_mobile_app/widgets/cat_prds_screen/category_prds.dart';
+import 'package:bhf_mobile_app/widgets/common/cart_icon.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -84,19 +85,24 @@ class _CategoryPrdsScreenState extends State<CategoryPrdsScreen> {
     if (!isLoading) {
       content = CategoryPrds(prdsData: productsData!);
     }
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.title,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              child: content,
+            ),
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-          child: content,
-        ),
-      ),
+        CartIcon(cartItemCount: 20,),
+      ],
     );
   }
 }

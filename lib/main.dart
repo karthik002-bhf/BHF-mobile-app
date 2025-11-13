@@ -1,4 +1,6 @@
+import 'package:bhf_mobile_app/common/route_observer.dart';
 import 'package:bhf_mobile_app/screens/bottom_nav_screen.dart';
+import 'package:bhf_mobile_app/widgets/common/whats_app_icon.dart';
 // import 'package:bhf_mobile_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
@@ -53,8 +55,27 @@ final theme = ThemeData(
   // ),
 );
 
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Stack(children: [
+//         BottomNavScreen(),
+//         WhatsAppButton(),
+//         ]),
+//     );
+//     // return MaterialApp(home: HomeScreen());
+//   }
+// }
+
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -62,7 +83,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: BottomNavScreen());
-    // return MaterialApp(home: HomeScreen());
+    return MaterialApp(
+      theme: theme,
+      navigatorObservers: [routeObserver],
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!, // The Navigator's content (all pages/routes)
+            const WhatsAppButton(), // Float WhatsApp button above all pages
+          ],
+        );
+      },
+      home: const BottomNavScreen(), // Your bottom nav as initial screen
+    );
   }
 }

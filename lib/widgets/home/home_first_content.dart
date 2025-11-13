@@ -22,6 +22,13 @@ class HomeFirstContent extends StatelessWidget {
           ),
         ),
       );
+    } else if(from == 'cts'){
+      // print('cat: $category');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => category['page_route'],
+        ),
+      );
     }
   }
 

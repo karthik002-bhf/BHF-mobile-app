@@ -69,7 +69,13 @@ class BulletItem extends StatelessWidget {
           Expanded(
             child: RichText(
               text: TextSpan(
-                style: DefaultTextStyle.of(context).style.copyWith(height: 1.4),
+                style: TextStyle(
+                    fontSize: 16, // Set a reasonable size
+                    color: Colors.black, // Use a standard color
+                    fontFamily: 'Roboto', // Or your app's default
+                    decoration: TextDecoration.none, // No underline/highlight
+                    fontWeight: FontWeight.normal,
+                  ),
                 children: [
                   TextSpan(
                     text: '$title ',

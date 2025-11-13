@@ -20,7 +20,7 @@ class PrdCatItems extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: count,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.6,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),

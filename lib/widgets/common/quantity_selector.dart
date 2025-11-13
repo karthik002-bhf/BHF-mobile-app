@@ -6,15 +6,15 @@ class QuantitySelector extends StatefulWidget {
     super.key,
     required this.initialQuantity,
     required this.isMetric,
-    this.onQuantityChanged,
-    this.onAddToCart,
+    required this.onQuantityChanged,
+    this.enabled,
   });
 
   final double initialQuantity;
   final bool isMetric; // true for 0.1 step, false for 1 step
   final ValueChanged<double>? onQuantityChanged;
-  final VoidCallback? onAddToCart;
-  
+  final bool? enabled;
+
   @override
   State<QuantitySelector> createState() => _QuantitySelectorState();
 }
@@ -39,20 +39,38 @@ class _QuantitySelectorState extends State<QuantitySelector> {
   }
 
   void _increment() {
-    setState(() {
-      quantity = double.parse((quantity + step).toStringAsFixed(1));
-      _controller.text = _formatQuantity(quantity);
-    });
-    widget.onQuantityChanged?.call(quantity);
-  }
-
-  void _decrement() {
-    if (quantity > step) {
+    if (widget.enabled != null && widget.enabled!) {
       setState(() {
-        quantity = double.parse((quantity - step).toStringAsFixed(1));
+        quantity = double.parse((quantity + step).toStringAsFixed(1));
         _controller.text = _formatQuantity(quantity);
       });
       widget.onQuantityChanged?.call(quantity);
+    } else if (widget.enabled == null) {
+      setState(() {
+        quantity = double.parse((quantity + step).toStringAsFixed(1));
+        _controller.text = _formatQuantity(quantity);
+      });
+      widget.onQuantityChanged?.call(quantity);
+    }
+  }
+
+  void _decrement() {
+    if (widget.enabled != null && widget.enabled!) {
+      if (quantity > step) {
+        setState(() {
+          quantity = double.parse((quantity - step).toStringAsFixed(1));
+          _controller.text = _formatQuantity(quantity);
+        });
+        widget.onQuantityChanged?.call(quantity);
+      }
+    } else if (widget.enabled == null) {
+      if (quantity > step) {
+        setState(() {
+          quantity = double.parse((quantity - step).toStringAsFixed(1));
+          _controller.text = _formatQuantity(quantity);
+        });
+        widget.onQuantityChanged?.call(quantity);
+      }
     }
   }
 
@@ -93,7 +111,7 @@ class _QuantitySelectorState extends State<QuantitySelector> {
             color: Colors.red,
           ),
           Container(
-            constraints: BoxConstraints(minWidth: 50, maxWidth: 70),
+            constraints: BoxConstraints(minWidth: 40, maxWidth: 60),
             // padding: const EdgeInsets.symmetric(horizontal: 8),
             // decoration: BoxDecoration(
             //   borderRadius: BorderRadius.circular(12),
@@ -101,6 +119,7 @@ class _QuantitySelectorState extends State<QuantitySelector> {
             //   color: Colors.grey.shade100,
             // ),
             child: TextField(
+              enabled: widget.enabled,
               controller: _controller,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [

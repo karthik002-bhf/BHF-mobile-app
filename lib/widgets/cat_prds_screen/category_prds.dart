@@ -17,7 +17,7 @@ class CategoryPrds extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: count,
-        childAspectRatio: 0.45,
+        childAspectRatio: 0.43,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
